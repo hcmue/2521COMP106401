@@ -1,0 +1,24 @@
+﻿@model List<Lab01.Models.Product>
+
+<h1>DANH SÁCH</h1>
+<table class="table table-hover">
+    <tr>
+        <td>Mã</td>
+        <td>Tên</td>
+        <td>Giá</td>
+        <td></td>
+    </tr>
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td>@item.Price.ToString("#,##0") đ</td>
+            <td>
+                <a asp-action="Edit" class="btn btn-primary" asp-route-id="@item.Id">Sửa</a>
+                <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id">Xóa</a>
+            </td>
+        </tr>
+    }
+</table>
+<a asp-action="Create" class="btn btn-info">Tạo mới</a>
