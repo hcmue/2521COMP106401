@@ -13,9 +13,18 @@
         <div class="row">
             <aside class="col-3 m-1">
                 #MENU
+                @await Component.InvokeAsync("Category")
 
                 <!--Menu danh mục-->
-                @await Html.PartialAsync("_DanhMuc")
+                @{
+                    var danhMuc = new List<Category>
+                    {
+                        new Category{Id=1, Name="Điện thoại"},
+                        new Category{Id=2, Name="Máy tính bảng"},
+                        new Category{Id=3, Name="Điều hòa"},
+                    };
+                }
+                @await Html.PartialAsync("_DanhMuc", danhMuc)
 
             </aside>
             <div class="col-9">
