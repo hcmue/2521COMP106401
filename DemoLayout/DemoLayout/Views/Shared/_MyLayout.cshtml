@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    <div class="container">
+        <header>#HEADER</header>
+        <div class="row">
+            <aside class="col-3 m-1">
+                #MENU
+
+                <!--Menu danh mục-->
+                @await Html.PartialAsync("_DanhMuc")
+
+            </aside>
+            <div class="col-9">
+                <h2 class="text-primary">
+                    @await RenderSectionAsync("Title", required: false)
+                </h2>
+                @RenderBody()
+            </div>
+        </div>
+        <footer class="bg-info text-center">Bản quyền thuộc về &copy;2026 XYZ</footer>
+    </div>
+    <!--Javascript-->
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
