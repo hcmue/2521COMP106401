@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyStore.Entities;
+using MyStore.Models;
 
 namespace MyStore.Controllers
 {
@@ -17,6 +18,39 @@ namespace MyStore.Controllers
         {
             _context = context;
         }
+
+        #region Search
+        [HttpGet]
+        public IActionResult Search()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Search(string Keyword, double? FromPrice, double? ToPrice)
+        {
+            var data = _context.HangHoas.AsQueryable();
+            if (!string.IsNullOrEmpty(Keyword))
+            {
+                data = data.Where(p => p.TenHh.Contains(Keyword));
+            }
+            if (FromPrice != null)
+            {
+                data = data.Where(p => p.DonGia >= FromPrice);
+            }
+            if (ToPrice != null)
+            {
+                data = data.Where(p => p.DonGia <= ToPrice);
+            }
+
+            var result = data.Select(p => new HangHoaVM
+            {
+                MaHh = p.MaHh,TenHh=p.TenHh, DonGia=p.DonGia ?? 0,
+                Hinh = p.Hinh, TenLoai = p.MaLoaiNavigation.TenLoai,
+                TenNCC = p.MaNccNavigation.TenCongTy
+            }).ToList();
+            return View(result);
+        }
+        #endregion
 
         // GET: HangHoas
         public async Task<IActionResult> Index()

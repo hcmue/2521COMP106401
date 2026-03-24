@@ -1,0 +1,44 @@
+﻿@model IEnumerable<HangHoaVM>
+@{
+    ViewData["Title"] = "Search";
+}
+
+<h1>Search</h1>
+<h1>Tìm kiếm</h1>
+
+<form asp-action="Search">
+    Tìm theo tên: <input name="Keyword" /><br />
+    Giá từ: <input type="number" name="FromPrice" />
+    đến: <input type="number" name="ToPrice" />
+    <button>Tìm kiếm</button>
+</form>
+@if (Model != null)
+{
+    <h2>Kết quả tìm kiếm</h2>
+    <table>
+        @foreach (var hh in Model)
+        {
+
+            <tr>
+
+                <td>@hh.MaHh</td>
+
+                <td>@hh.TenHh</td>
+
+                <td>@hh.DonGia.ToString("#,##0.0") $</td>
+
+                <td>@hh.TenLoai</td>
+
+                <td>
+
+                    <img src="~/Hinh/HangHoa/@hh.Hinh"
+                         alt="@hh.TenHh" />
+
+                </td>
+
+            </tr>
+
+        }
+
+    </table>
+}
