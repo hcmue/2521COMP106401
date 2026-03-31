@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using MyStore.Models;
 
 namespace MyStore.Entities;
 
@@ -444,4 +445,6 @@ public partial class MyeStoreContext : DbContext
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+public DbSet<MyStore.Models.DoanhThuLoaiVM> DoanhThuLoaiVM { get; set; } = default!;
 }

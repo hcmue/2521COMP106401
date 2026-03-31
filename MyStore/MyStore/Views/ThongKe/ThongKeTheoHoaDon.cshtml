@@ -1,0 +1,83 @@
+﻿@{
+    ViewData["Title"] = "ThongKeTheoHoaDon";
+}
+
+<h1>Thống kê theo Hóa đơn</h1>
+<fieldset>
+    <legend>Thời gian lập hóa đơn</legend>
+    Từ ngày:
+    <input id="TuNgay" type="date" />
+    đến ngày:
+    <input id="DenNgay" type="date" />
+    <button type="button" id="btnThongKe">Thống kê</button>
+</fieldset>
+<canvas id="myChart"></canvas>
+<canvas id="myPieChart"></canvas>
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('myChart');
+        const ctxPie = document.getElementById('myPieChart');
+        $(document).ready(function(){
+            $("#btnThongKe").click(function(){
+                $.ajax({
+                    type: 'POST',
+                    url: '/ThongKe/ThongKeHoaDon',
+                    data: {
+                        TuNgay: $("#TuNgay").val(),
+                        DenNgay: $("#DenNgay").val()
+                    },
+                    success: function(response){
+                        console.log(response);
+                        let myLabels = response.map((item) => item.tenLoai);
+                        let myStatitics = response.map((item) => item.doanhThu);
+                        console.log(myLabels);
+                        new Chart(ctx, {
+                          type: 'bar',
+                          data: {
+                            labels: myLabels,
+                            datasets: [{
+                              label: 'Thống kê Doanh thu theo Loại',
+                              data: myStatitics,
+                              borderWidth: 1
+                            }]
+                          },
+                          options: {
+                            scales: {
+                              y: {
+                                beginAtZero: true
+                              }
+                            }
+                          }
+                        });
+
+                        new Chart(ctxPie, {
+                          type: 'pie',
+                          data: {
+                            labels: myLabels,
+                            datasets: [{
+                              label: 'Thống kê Doanh thu theo Loại',
+                              data: myStatitics,
+                               backgroundColor: [
+                                  'rgb(255, 99, 132)',
+                                  'rgb(54, 162, 235)',
+                                  'rgb(255, 205, 86)'
+                                ],
+                                hoverOffset: 4
+                            }]
+                          },
+                          options: {
+                            scales: {
+                              y: {
+                                beginAtZero: true
+                              }
+                            }
+                          }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}
+

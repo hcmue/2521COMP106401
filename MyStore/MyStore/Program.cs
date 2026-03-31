@@ -5,6 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+//Singleton (Phân biệt: Scope, Transient)
 builder.Services.AddDbContext<MyeStoreContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MyEstore")));
 
 var app = builder.Build();

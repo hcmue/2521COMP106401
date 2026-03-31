@@ -1,0 +1,35 @@
+﻿@model IEnumerable<MyStore.Models.DoanhThuLoaiVM>
+
+@{
+    ViewData["Title"] = "ThongKeTheoLoai";
+}
+
+<h1>ThongKeTheoLoai</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>MaLoai</th>
+            <th>
+                @Html.DisplayNameFor(model => model.TenLoai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DoanhThu)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaLoai</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenLoai)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DoanhThu)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
