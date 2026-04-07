@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MyStore.Entities;
 using MyStore.Models;
 
@@ -16,6 +17,7 @@ namespace MyStore.Controllers
             return View();
         }
 
+        [Authorize]
         public IActionResult ThongKeTheoLoai()
         {
             var data = _context.ChiTietHds
@@ -33,6 +35,7 @@ namespace MyStore.Controllers
             return View(data);
         }
 
+        [Authorize(Roles ="Sales")]
         public IActionResult ThongKeTheoHoaDon()
         {
             return View();

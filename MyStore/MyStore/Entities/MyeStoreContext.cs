@@ -447,4 +447,6 @@ public partial class MyeStoreContext : DbContext
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
 public DbSet<MyStore.Models.DoanhThuLoaiVM> DoanhThuLoaiVM { get; set; } = default!;
+
+public DbSet<MyStore.Models.LoginVM> LoginVM { get; set; } = default!;
 }
